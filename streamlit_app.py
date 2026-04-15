@@ -226,6 +226,10 @@ def main() -> None:
                     st.error(str(exc))
                 except requests.RequestException as exc:
                     st.error(f"Backend request failed: {exc}")
+                    response = getattr(exc, "response", None)
+                    if response is not None:
+                        with st.expander("Backend error details"):
+                            st.code(response.text)
 
         st.divider()
         render_chat(st.session_state.api_base_url)

@@ -22,8 +22,11 @@ class IngestionService:
             content = await file.read()
             # Determine encoding if necessary, defaulting to utf-8
             df = pd.read_csv(io.BytesIO(content))
-            # Convert DataFrame to string representation (e.g., to markdown or just text)
-            return df.to_markdown(index=False)
+            # Prefer markdown for LLM readability; fall back to CSV if tabulate is not installed.
+            try:
+                return df.to_markdown(index=False)
+            except ImportError:
+                return df.to_csv(index=False)
          except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error processing CSV: {str(e)}")
 

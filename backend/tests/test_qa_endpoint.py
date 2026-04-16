@@ -14,7 +14,7 @@ class FakeRAGService:
 
 class BadConfigRAGService:
     async def query(self, question: str) -> str:
-        raise LLMConfigurationError("Missing GOOGLE_API_KEY in environment.")
+        raise LLMConfigurationError("Missing OPENAI_API_KEY in environment.")
 
 
 def test_qa_returns_answer(monkeypatch) -> None:
@@ -34,4 +34,4 @@ def test_qa_returns_400_for_invalid_llm_config(monkeypatch) -> None:
     response = client.post("/api/v1/qa", json={"question": "What is revenue?"})
 
     assert response.status_code == 400
-    assert "GOOGLE_API_KEY" in response.json()["detail"]
+    assert "OPENAI_API_KEY" in response.json()["detail"]

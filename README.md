@@ -17,14 +17,14 @@ PoC for deriving financial insights from PDF/CSV documents using LLMs and a mult
 
 - Backend API: FastAPI (`backend/app`)
 - Agentic workflow: LangGraph (`backend/app/agents`)
-- LLM provider: Google Gemini via `langchain-google-genai`
+- LLM provider: OpenAI via `langchain-openai`
 - Vector store: FAISS with sentence-transformer embeddings
 - Frontend: Streamlit (`streamlit_app.py`)
 
 ## Prerequisites
 
 - Python 3.10+
-- A Google API key with Gemini access
+- An OpenAI API key
 
 ## Setup
 
@@ -44,7 +44,8 @@ cp .env.example .env
 Edit `backend/.env` and set:
 
 ```env
-GOOGLE_API_KEY=your_gemini_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
 ```
 
 ## Run

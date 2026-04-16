@@ -11,7 +11,11 @@ class RAGService:
         self.vector_store.load_or_create_index()
         docs = self.vector_store.similarity_search(question)
         context = "\n".join([d.page_content for d in docs])
-        
+
+        # Truncate context to ~3000 chars to stay well within token limits
+        if len(context) > 3000:
+            context = context[:3000] + "..."
+
         # Generate Answer
         prompt = f"Context: {context}\n\nQuestion: {question}\n\nAnswer:"
         response = await self.llm_service.generate_response(prompt)

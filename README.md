@@ -6,10 +6,8 @@ PoC for deriving financial insights from PDF/CSV documents using LLMs and a mult
 
 - Ingests financial documents (`.pdf`, `.csv`)
 - Stores extracted content in a FAISS vector index for retrieval
-- Runs a LangGraph multi-agent workflow to produce:
+- Runs a LangGraph workflow to produce:
   - Document summary
-  - MCQs with correct answers
-  - Chart-ready analytics data
 - Supports Q&A over ingested documents using RAG
 - Provides a Streamlit UI for upload, analysis, and chat
 

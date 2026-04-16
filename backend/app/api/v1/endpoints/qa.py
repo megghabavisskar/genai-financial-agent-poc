@@ -7,6 +7,7 @@ from app.services.llm import LLMConfigurationError
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
+
 class QuestionRequest(BaseModel):
     question: str
 
@@ -20,8 +21,6 @@ class QuestionResponse(BaseModel):
 async def ask_question(request: QuestionRequest) -> QuestionResponse:
     try:
         rag_service = RAGService()
-        # Note: In a real app, you'd want to dependency inject the service 
-        # or use a global instance to reuse the vector store loaded in memory.
         answer = await rag_service.query(request.question)
         return QuestionResponse(question=request.question, answer=answer)
     except LLMConfigurationError as e:

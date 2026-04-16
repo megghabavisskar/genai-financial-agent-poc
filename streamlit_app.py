@@ -110,6 +110,8 @@ def main() -> None:
                 if not st.session_state.full_text:
                     st.warning("No text extracted from file.")
                 else:
+                    # Reset chat so questions stay scoped to the newly uploaded document.
+                    st.session_state.messages = []
                     st.info("Document uploaded. Generating summary...")
                     st.session_state.analysis_data = analyze_text(
                         st.session_state.full_text,

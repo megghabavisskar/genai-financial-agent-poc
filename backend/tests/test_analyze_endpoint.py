@@ -11,6 +11,22 @@ class FakeGraph:
     async def ainvoke(self, inputs):
         return {
             "summary": "Short summary",
+            "mcqs": [
+                {
+                    "question": "Sample question?",
+                    "options": ["A", "B", "C", "D"],
+                    "correct_answer": "A",
+                }
+            ],
+            "analytics_data": {
+                "charts": [
+                    {
+                        "type": "bar",
+                        "title": "Revenue",
+                        "data": [{"name": "Q1", "value": 100}],
+                    }
+                ]
+            },
         }
 
 
@@ -27,7 +43,8 @@ def test_analyze_returns_structured_response(monkeypatch) -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["summary"] == "Short summary"
-    assert set(payload.keys()) == {"summary"}
+    assert len(payload["mcqs"]) == 1
+    assert payload["analytics"]["charts"][0]["title"] == "Revenue"
 
 
 def test_analyze_returns_400_for_invalid_llm_config(monkeypatch) -> None:
